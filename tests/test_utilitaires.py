@@ -119,3 +119,11 @@ def test_masquer_texte_court():
     assert check(utilitaires.masquer_texte("AB")) == "AB"
     assert check(utilitaires.masquer_texte("A")) == "A"
     assert check(utilitaires.masquer_texte("")) == ""
+
+# ==========================================
+# Tests pour : un_pour_prof
+# ==========================================
+
+def test_un_pour_prof():
+    # 1
+    assert check(utilitaires.un_pour_prof()) == 1

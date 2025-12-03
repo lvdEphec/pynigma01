@@ -146,3 +146,18 @@ def masquer_texte(texte):
         'Ok'
     """
     return NotImplemented
+
+
+
+
+# -------------------------------------------------------------------------
+# ESPACE TAMPON POUR LIMITER LES RISQUES DE CONFLIT
+# -------------------------------------------------------------------------
+
+
+
+def un_pour_prof():
+    """
+    retourne 1  
+    """
+    return NotImplemented
