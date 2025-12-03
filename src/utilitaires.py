@@ -160,4 +160,4 @@ def un_pour_prof():
     """
     retourne 1  
     """
-    return 1
+    return NotImplemented
