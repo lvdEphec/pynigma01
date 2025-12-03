@@ -5,3 +5,4 @@ __pycache__/
 .DS_Store
 .vscode/
 _admin_scripts/
+create_issues.py
