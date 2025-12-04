@@ -1,0 +1,36 @@
+name: ChatOps Assignation
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  manage_assignment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      # Cas 1 : L'étudiant veut prendre la tâche
+      - name: Assign
+        if: contains(github.event.comment.body, '/assign')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: [context.payload.comment.user.login]
+            })
+            
+      # Cas 2 : L'étudiant veut libérer la tâche
+      - name: Unassign
+        if: contains(github.event.comment.body, '/unassign')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.removeAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: [context.payload.comment.user.login]
+            })

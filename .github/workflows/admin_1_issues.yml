@@ -1,0 +1,25 @@
+name: 🪄 1. Admin - Créer Tâches (Auto)
+
+on:
+  workflow_dispatch: # Bouton simple "Run"
+
+# On donne au robot le droit d'écrire des issues
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Lancement Script
+        env:
+          # Le robot utilise son propre token interne
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python _admin_scripts/create_issues.py
