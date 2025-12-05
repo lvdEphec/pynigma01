@@ -2,11 +2,7 @@
 
 > ⚠️ **ÉTUDIANTS :** Toutes les consignes, les règles et le déroulement se trouvent dans le document PDF **"Énoncé du TP"**. Merci de le lire attentivement avant de commencer.
 
-<a href="https://github.com/lvdEphec/pynigma01/blob/main/TP09_Intro-tests-unitaires_Exercice-commun.pdf" 
-   target="_blank" 
-   rel="noopener noreferrer">
-  Enoncé de l'exercice
-</a>
+[Enoncé de l'exercice](TP09_Intro-tests-unitaires_Exercice-commun.pdf)
 
 ---
 <br>
