@@ -46,7 +46,7 @@
 - [ ] Valider l'entrée dans le workflow pour lancer les tests, et merger dans le main si tout est bon.
 - [ ] Ceux qui sont à l'aise peuvent foncer dans l'exercice. Les autres peuvent regarder l'exemple et faire l'exercice en parallèle. (Possibilité aussi d'un premier exemple rapide, puis un exemple en parallèle.)
 - [ ] Pour l'exemple avec un_pour_prof, partir du clone. (Pour le fork il faudrait alors un autre compte.)
-- [ ]Vérifier à chaque étape qu'ils comprennent la situation et ce qu'il faut faire.
-- [ ]Bon moment pour montrer Ctrl-t et alt-flèches (vs code win)
-- [ ]Lancer les tests unitaires pour les montrer
-- [ ]Récupérer le code soumis pour voir ce qui tourne dans l'application
+- [ ] Vérifier à chaque étape qu'ils comprennent la situation et ce qu'il faut faire.
+- [ ] Bon moment pour montrer Ctrl-t et alt-flèches (vs code win)
+- [ ] Lancer les tests unitaires pour les montrer
+- [ ] Récupérer le code soumis pour voir ce qui tourne dans l'application
