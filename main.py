@@ -1,6 +1,7 @@
 import sys
 import os
 
+# Ajout du dossier courant au path pour trouver le package 'src'
 sys.path.append(os.getcwd())
 MODULES_CHARGES = False
 

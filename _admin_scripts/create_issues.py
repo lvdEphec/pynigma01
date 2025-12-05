@@ -1,9 +1,12 @@
 import os
 import time
+import subprocess
 
 # Liste des tâches : (Titre de l'issue, Description complète/Docstring)
+# Structure : "Titre": {"desc": "Description", "deps": ["Titre dépendance"]}
 TASKS = {
-    "Implémenter code_lettre (César)": """Décale une SEULE lettre majuscule en utilisant le code César.
+    "Implémenter code_lettre (César)": {
+        "desc": """Décale une SEULE lettre majuscule en utilisant le code César.
 Si le caractère n'est pas une lettre, il est retourné inchangé.
 
 Args:
@@ -16,8 +19,11 @@ Returns:
 Example:
     >>> code_lettre('A', 3)
     'D'""",
+        "deps": ["Implémenter est_lettre"]
+    },
 
-    "Implémenter chiffrer_cesar": """Chiffre un message complet avec le code César.
+    "Implémenter chiffrer_cesar": {
+        "desc": """Chiffre un message complet avec le code César.
 Utilise la fonction code_lettre pour chaque caractère.
 
 Args:
@@ -30,8 +36,11 @@ Returns:
 Example:
     >>> chiffrer_cesar("HAL", 1)
     'IBM'""",
+        "deps": ["Implémenter code_lettre (César)"]
+    },
 
-    "Implémenter dechiffrer_cesar": """Déchiffre un message codé avec César.
+    "Implémenter dechiffrer_cesar": {
+        "desc": """Déchiffre un message codé avec César.
 Astuce : C'est comme chiffrer avec un décalage négatif.
 
 Args:
@@ -44,8 +53,11 @@ Returns:
 Example:
     >>> dechiffrer_cesar("IBM", 1)
     'HAL'""",
+        "deps": ["Implémenter chiffrer_cesar"]
+    },
 
-    "Implémenter est_lettre": """Vérifie si un caractère est une lettre de l'alphabet (A-Z ou a-z).
+    "Implémenter est_lettre": {
+        "desc": """Vérifie si un caractère est une lettre de l'alphabet (A-Z ou a-z).
 ATTENTION : On ne considère que les lettres sans accents (ASCII) pour cet exercice.
 
 Args:
@@ -57,8 +69,11 @@ Returns:
 Example:
     >>> est_lettre('A')
     True""",
+        "deps": []
+    },
 
-    "Implémenter nettoyer_accents": """Prépare le texte pour le chiffrement.
+    "Implémenter nettoyer_accents": {
+        "desc": """Prépare le texte pour le chiffrement.
 
 Règles :
 1. Remplacer les lettres accentuées par leur version sans accent (é->e, à->a).
@@ -72,8 +87,11 @@ Args:
 
 Returns:
     str: Texte nettoyé.""",
+        "deps": []
+    },
 
-    "Implémenter code_miroir (Subst)": """Applique le chiffrement miroir (Atbash).
+    "Implémenter code_miroir (Subst)": {
+        "desc": """Applique le chiffrement miroir (Atbash).
 L'alphabet est inversé : A<->Z, B<->Y, C<->X...
 
 Args:
@@ -85,8 +103,11 @@ Returns:
 Example:
     >>> code_miroir("AZ")
     'ZA'""",
+        "deps": []
+    },
 
-    "Implémenter vers_leet_speak": """Transforme le texte en Leet Speak (remplacement par des chiffres).
+    "Implémenter vers_leet_speak": {
+        "desc": """Transforme le texte en Leet Speak (remplacement par des chiffres).
 Règles : E->3, A->4, T->7, I->1, O->0, S->5.
 
 Args:
@@ -94,8 +115,11 @@ Args:
 
 Returns:
     str: Le texte transformé.""",
+        "deps": []
+    },
 
-    "Implémenter depuis_leet_speak": """Retrouve le texte original depuis du Leet Speak.
+    "Implémenter depuis_leet_speak": {
+        "desc": """Retrouve le texte original depuis du Leet Speak.
 Inverse les règles : 3->E, 4->A...
 
 Args:
@@ -103,8 +127,11 @@ Args:
 
 Returns:
     str: Le texte lisible.""",
+        "deps": []
+    },
 
-    "Implémenter chiffrer_vigenere": """Chiffre avec la méthode de Vigenère (Code César à clé variable).
+    "Implémenter chiffrer_vigenere": {
+        "desc": """Chiffre avec la méthode de Vigenère (Code César à clé variable).
 La clé est répétée pour correspondre à la longueur du message.
 Attention : La clé doit être nettoyée des espaces avant usage.
 
@@ -114,8 +141,11 @@ Args:
 
 Returns:
     str: Le message chiffré.""",
+        "deps": ["Implémenter code_lettre (César)"]
+    },
 
-    "Implémenter dechiffrer_vigenere": """Déchiffre un message Vigenère.
+    "Implémenter dechiffrer_vigenere": {
+        "desc": """Déchiffre un message Vigenère.
 Même logique que le chiffrement, mais on soustrait le décalage.
 
 Args:
@@ -124,8 +154,11 @@ Args:
 
 Returns:
     str: Le message en clair.""",
+        "deps": ["Implémenter chiffrer_vigenere"]
+    },
 
-    "Implémenter compter_lettres (Freq)": """Compte le nombre d'apparitions de chaque lettre.
+    "Implémenter compter_lettres (Freq)": {
+        "desc": """Compte le nombre d'apparitions de chaque lettre.
 
 Règles :
 - Ignorer les espaces, chiffres et caractères spéciaux.
@@ -136,8 +169,11 @@ Args:
 
 Returns:
     dict: Un dictionnaire {'LETTRE': nombre}.""",
+        "deps": []
+    },
 
-    "Implémenter obtenir_lettre_frequente": """Trouve la lettre qui revient le plus souvent dans le texte.
+    "Implémenter obtenir_lettre_frequente": {
+        "desc": """Trouve la lettre qui revient le plus souvent dans le texte.
 
 Astuce : Vous pouvez utiliser votre fonction `compter_lettres`.
 Si le texte ne contient aucune lettre, retourner None.
@@ -147,8 +183,11 @@ Args:
 
 Returns:
     str: La lettre la plus fréquente (ou None).""",
+        "deps": ["Implémenter compter_lettres (Freq)"]
+    },
 
-    "Implémenter calculer_similitude": """Calcule le pourcentage de ressemblance entre deux textes.
+    "Implémenter calculer_similitude": {
+        "desc": """Calcule le pourcentage de ressemblance entre deux textes.
 
 Algorithme :
 1. Comparer les caractères à la même position.
@@ -161,8 +200,11 @@ Args:
 
 Returns:
     float: Un score entre 0.0 et 1.0.""",
+        "deps": []
+    },
 
-    "Implémenter detecter_langue": """Devine la langue du texte (Français ou Anglais).
+    "Implémenter detecter_langue": {
+        "desc": """Devine la langue du texte (Français ou Anglais).
 
 Algorithme de scoring :
 1. Convertir le texte en majuscules.
@@ -172,8 +214,11 @@ Algorithme de scoring :
 
 Returns:
     str: 'EN' ou 'FR'.""",
+        "deps": []
+    },
 
-    "Implémenter est_palindrome": """Vérifie si le texte est un palindrome (se lit pareil dans les 2 sens).
+    "Implémenter est_palindrome": {
+        "desc": """Vérifie si le texte est un palindrome (se lit pareil dans les 2 sens).
 
 Règles :
 - Ne garder que les lettres (pas d'espace, pas de ponctuation).
@@ -182,8 +227,11 @@ Règles :
 Example:
     >>> est_palindrome("Esope reste ici et se repose")
     True""",
+        "deps": ["Implémenter nettoyer_accents"]
+    },
 
-    "Implémenter generer_mot_de_passe (Utils)": """Génère un mot de passe aléatoire robuste.
+    "Implémenter generer_mot_de_passe (Utils)": {
+        "desc": """Génère un mot de passe aléatoire robuste.
 Doit contenir : Majuscules, minuscules, chiffres et caractères spéciaux (!@#$%).
 
 Args:
@@ -191,8 +239,11 @@ Args:
 
 Returns:
     str: Le mot de passe généré.""",
+        "deps": []
+    },
 
-    "Implémenter formater_en_blocs": """Découpe une chaîne en blocs de N caractères séparés par des espaces.
+    "Implémenter formater_en_blocs": {
+        "desc": """Découpe une chaîne en blocs de N caractères séparés par des espaces.
 
 Args:
     texte (str): La chaîne brute.
@@ -200,8 +251,11 @@ Args:
 
 Returns:
     str: La chaîne formatée (ex: "BON JOU R").""",
+        "deps": []
+    },
 
-    "Implémenter compter_mots": """Compte le nombre de mots dans une phrase.
+    "Implémenter compter_mots": {
+        "desc": """Compte le nombre de mots dans une phrase.
 Gère les espaces multiples (ne pas compter les vides).
 
 Args:
@@ -209,8 +263,11 @@ Args:
 
 Returns:
     int: Le nombre de mots.""",
+        "deps": []
+    },
 
-    "Implémenter est_mot_de_passe_fort": """Vérifie la sécurité d'un mot de passe.
+    "Implémenter est_mot_de_passe_fort": {
+        "desc": """Vérifie la sécurité d'un mot de passe.
 Critères : Min 8 caractères, 1 chiffre, 1 majuscule, 1 minuscule.
 
 Args:
@@ -218,37 +275,63 @@ Args:
 
 Returns:
     bool: True si le mot de passe est fort.""",
+        "deps": []
+    },
 
-    "Implémenter masquer_texte": """Masque un texte par des étoiles, sauf les 2 derniers caractères.
+    "Implémenter masquer_texte": {
+        "desc": """Masque un texte par des étoiles, sauf les 2 derniers caractères.
 Si le texte est trop court (<= 2), on ne masque rien.
 
 Args:
     texte (str): Le secret.
 
 Returns:
-    str: Le texte masqué."""
+    str: Le texte masqué.""",
+        "deps": []
+    },
+    
+    "Implémenter un_pour_prof": {
+        "desc": """Fonction simple pour tester le mode Professeur.
+        
+Returns:
+    int: La valeur 1.""",
+        "deps": []
+    }
 }
 
 print(f"🚀 Lancement de la création de {len(TASKS)} issues sur GitHub...")
-print("ℹ️  Assurez-vous d'avoir fait 'gh auth login' avant.")
+
+# 1. Vérification de l'installation de 'gh'
+try:
+    subprocess.run(["gh", "--version"], check=True, stdout=subprocess.DEVNULL)
+except (FileNotFoundError, subprocess.CalledProcessError):
+    print("❌ ERREUR : La commande 'gh' (GitHub CLI) n'est pas installée ou pas dans le PATH.")
+    exit(1)
 
 counter = 1
-for title, body in TASKS.items():
-    # Échappement basique des guillemets pour la ligne de commande
-    safe_body = body.replace('"', '\\"')
-    
-    # Commande GH
-    cmd = f'gh issue create --title "{title}" --body "{safe_body}"'
+for title, data in TASKS.items():
+    body = data["desc"]
+    dependencies = data["deps"]
+
+    # 2. Injection dynamique des dépendances dans le texte
+    if dependencies:
+        dep_str = ", ".join([f"`{d}`" for d in dependencies])
+        body += f"\n\n---\n⚠️ **DÉPENDANCE** : Cette tâche nécessite d'avoir terminé : {dep_str}"
+
+    # 3. Création de la commande sécurisée (liste d'arguments)
+    # Plus besoin de replace('"', '\\"') car subprocess gère les arguments proprement
+    cmd = ["gh", "issue", "create", "--title", title, "--body", body]
     
     print(f"[{counter}/{len(TASKS)}] Création : {title}...")
-    result = os.system(cmd)
     
-    if result != 0:
-        print("❌ Erreur lors de la création. Vérifiez votre connexion 'gh'.")
-        break
-        
+    try:
+        # Exécution et capture d'erreurs éventuelles
+        subprocess.run(cmd, check=True, text=True, capture_output=True)
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Erreur lors de la création de '{title}' : {e.stderr}")
+    
     counter += 1
-    # Petite pause pour ne pas se faire bloquer par l'API GitHub (Rate Limit)
+    # Petite pause pour éviter le Rate Limit de l'API GitHub
     time.sleep(1)
 
-print("\n✨ Terminé ! Toutes les tâches sont créées avec leurs spécifications.")
+print("\n✨ Terminé ! Toutes les tâches sont créées avec leurs spécifications et dépendances.")

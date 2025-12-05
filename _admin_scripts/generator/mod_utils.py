@@ -64,13 +64,13 @@ def test_compter_mots_simple():
 
 def test_compter_mots_avec_espaces_multiples():
     # Les espaces multiples ne doivent pas compter comme des mots vides
-    # "Un   deux" -> 2 mots
-    resultat = check(utilitaires.compter_mots("Un   deux"))
+    # "Un   deux" -> 2 mots
+    resultat = check(utilitaires.compter_mots("Un   deux"))
     assert resultat == 2
 
 def test_compter_mots_vide():
     assert check(utilitaires.compter_mots("")) == 0
-    assert check(utilitaires.compter_mots("   ")) == 0
+    assert check(utilitaires.compter_mots("   ")) == 0
 
 
 # ==========================================
@@ -115,6 +115,14 @@ def test_masquer_texte_court():
     assert check(utilitaires.masquer_texte("AB")) == "AB"
     assert check(utilitaires.masquer_texte("A")) == "A"
     assert check(utilitaires.masquer_texte("")) == ""
+
+# ==========================================
+# Tests pour : un_pour_prof (AJOUTÉ)
+# ==========================================
+
+def test_un_pour_prof():
+    # 1
+    assert check(utilitaires.un_pour_prof()) == 1
 """
 
 # =============================================================================
@@ -186,7 +194,7 @@ def compter_mots(texte):
     Example:
         >>> compter_mots("Bonjour le monde")
         3
-        >>> compter_mots("Un   deux")
+        >>> compter_mots("Un   deux")
         2
     \"\"\"
     return NotImplemented
@@ -237,6 +245,18 @@ def masquer_texte(texte):
         'Ok'
     \"\"\"
     return NotImplemented
+{PADDING}
+# ==========================================
+# un_pour_prof (AJOUTÉ)
+# ==========================================
+def un_pour_prof():
+    \"\"\"
+    Fonction simple pour tester la génération en mode Prof/Étudiant.
+    
+    Returns:
+        int: La valeur 1.
+    \"\"\"
+    return NotImplemented
 """
 
 # =============================================================================
@@ -284,4 +304,10 @@ def masquer_texte(texte):
     
     nb_etoiles = len(texte) - 2
     return "*" * nb_etoiles + texte[-2:]
+{PADDING}
+# ==========================================
+# un_pour_prof (AJOUTÉ)
+# ==========================================
+def un_pour_prof():
+    return 1
 """

@@ -150,7 +150,9 @@ def obtenir_lettre_la_plus_frequente(texte):
     \"\"\"
     Trouve la lettre qui revient le plus souvent dans le texte.
     
-    Astuce : Vous pouvez utiliser votre fonction `compter_lettres`.
+    ⚠️ CONSEIL : Ne réécrivez pas le comptage !
+    Utilisez votre fonction `compter_lettres` (codée ci-dessus) pour obtenir le dictionnaire,
+    puis trouvez la clé qui a la plus grande valeur.
     Si le texte ne contient aucune lettre, retourner None.
 
     Args:

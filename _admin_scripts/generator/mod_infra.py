@@ -1,12 +1,22 @@
 # mod_infra.py
 
 FILES = {
+    # --- CONFIGURATION BASE ---
     "requirements.txt": "pytest\npytest-cov",
-    ".gitignore": "venv/\n.venv/\n__pycache__/\n*.py[cod]\n.DS_Store\n.vscode/\n_admin_scripts/\n",
+    
+    # MODIFICATION ICI : On n'ignore PAS _admin_scripts car il doit partir sur Git.
+    # On ignore juste le dossier generator (s'il est dedans) pour ne pas donner le corrigé/générateur aux étudiants ?
+    # À vous de voir. Ici, j'ignore juste les caches et venv standard.
+    ".gitignore": "venv/\n.venv/\n__pycache__/\n*.py[cod]\n.DS_Store\n.vscode/\n_admin_scripts/generator/\n",
+    
     "src/__init__.py": "",
     "tests/__init__.py": "",
     
-    # WORKFLOW CI/CD
+    # =========================================================================
+    # WORKFLOWS GITHUB
+    # =========================================================================
+
+    # 1. CI TDD
     ".github/workflows/tests.yml": """name: CI TDD
 on: [push, pull_request]
 
@@ -32,19 +42,20 @@ jobs:
           python -m pytest -rs -v --cov=src
 """,
 
-    # CHATOPS ASSIGN
-    ".github/workflows/assign.yml": """name: Assign Issue
+    # 2. ASSIGNATION
+    ".github/workflows/assign.yml": """name: ChatOps Assignation
 on:
   issue_comment:
     types: [created]
+
 jobs:
-  assign:
-    if: contains(github.event.comment.body, '/assign')
+  manage_assignment:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
       - name: Assign
+        if: contains(github.event.comment.body, '/assign')
         uses: actions/github-script@v6
         with:
           script: |
@@ -54,9 +65,67 @@ jobs:
               issue_number: context.issue.number,
               assignees: [context.payload.comment.user.login]
             })
+      - name: Unassign
+        if: contains(github.event.comment.body, '/unassign')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.removeAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: [context.payload.comment.user.login]
+            })
 """,
 
-    # MAIN.PY (Interface)
+    # 3. ADMIN - CREATION DES ISSUES
+    ".github/workflows/admin_1_issues.yml": """name: 🪄 1. Admin - Créer Tâches (Auto)
+
+on: workflow_dispatch
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.10'}
+      - name: Lancement Script
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python _admin_scripts/create_issues.py
+""",
+
+    # 4. ADMIN - PROTECTION BRANCHE
+    ".github/workflows/admin_2_protection.yml": """name: 🛡️ 2. Admin - Protéger (⚠️ SUPPRIMER LE RUN APRES)
+
+on:
+  workflow_dispatch:
+    inputs:
+      admin_token:
+        description: 'Token Admin (PAT) - Obligatoire pour la sécurité'
+        required: true
+        type: string
+
+jobs:
+  protect-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.10'}
+      - run: echo "::add-mask::${{ inputs.admin_token }}"
+      - name: Lancement Script
+        env:
+          GH_TOKEN: ${{ inputs.admin_token }}
+        run: python _admin_scripts/protect_branch.py
+""",
+
+    # --- MAIN.PY (VOTRE VERSION INITIALE) ---
     "main.py": """import sys
 import os
 

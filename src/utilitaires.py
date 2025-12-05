@@ -79,7 +79,7 @@ def compter_mots(texte):
     Example:
         >>> compter_mots("Bonjour le monde")
         3
-        >>> compter_mots("Un   deux")
+        >>> compter_mots("Un   deux")
         2
     """
     return NotImplemented
@@ -149,15 +149,20 @@ def masquer_texte(texte):
 
 
 
-
 # -------------------------------------------------------------------------
 # ESPACE TAMPON POUR LIMITER LES RISQUES DE CONFLIT
 # -------------------------------------------------------------------------
 
 
 
+# ==========================================
+# un_pour_prof (AJOUTÉ)
+# ==========================================
 def un_pour_prof():
     """
-    return 1   
+    Fonction simple pour tester la génération en mode Prof/Étudiant.
+    
+    Returns:
+        int: La valeur 1.
     """
     return NotImplemented

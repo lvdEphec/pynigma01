@@ -68,13 +68,13 @@ def test_compter_mots_simple():
 
 def test_compter_mots_avec_espaces_multiples():
     # Les espaces multiples ne doivent pas compter comme des mots vides
-    # "Un   deux" -> 2 mots
-    resultat = check(utilitaires.compter_mots("Un   deux"))
+    # "Un   deux" -> 2 mots
+    resultat = check(utilitaires.compter_mots("Un   deux"))
     assert resultat == 2
 
 def test_compter_mots_vide():
     assert check(utilitaires.compter_mots("")) == 0
-    assert check(utilitaires.compter_mots("   ")) == 0
+    assert check(utilitaires.compter_mots("   ")) == 0
 
 
 # ==========================================
@@ -121,7 +121,7 @@ def test_masquer_texte_court():
     assert check(utilitaires.masquer_texte("")) == ""
 
 # ==========================================
-# Tests pour : un_pour_prof
+# Tests pour : un_pour_prof (AJOUTÉ)
 # ==========================================
 
 def test_un_pour_prof():

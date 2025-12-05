@@ -44,7 +44,7 @@ def test_obtenir_frequente_egalite():
     res = check(analyse_frequence.obtenir_lettre_la_plus_frequente("AABB"))
     assert res in ['A', 'B']
 
-def _():
+def test_obtenir_frequente_texte_vide():
     # Cas limite : texte vide -> None
     resultat = check(analyse_frequence.obtenir_lettre_la_plus_frequente(""))
     assert resultat is None

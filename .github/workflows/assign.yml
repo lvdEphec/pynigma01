@@ -2,7 +2,6 @@ name: ChatOps Assignation
 on:
   issue_comment:
     types: [created]
-
 jobs:
   manage_assignment:
     runs-on: ubuntu-latest
@@ -21,7 +20,6 @@ jobs:
               issue_number: context.issue.number,
               assignees: [context.payload.comment.user.login]
             })
-            
       # Cas 2 : L'étudiant veut libérer la tâche
       - name: Unassign
         if: contains(github.event.comment.body, '/unassign')

@@ -1,6 +1,11 @@
+# Environnements Python
 venv/
 .venv/
+# Fichiers compilés et cache
 __pycache__/
 *.py[cod]
+.pytest_cache/
+# Métadonnées et systèmes
 .DS_Store
+# Editeur (à ignorer si la config n'est pas partagée)
 .vscode/

@@ -116,10 +116,35 @@ def test_nettoyer_accents_vide():
 # 2. SQUELETTE ETUDIANT (DOCSTRINGS GOOGLE STYLE & EXEMPLES)
 # =============================================================================
 STUDENT = f"""
+def est_lettre(char):
+    \"\"\"
+    Vérifie si un caractère est une lettre de l'alphabet standard (A-Z).
+    Pour cet exercice, on considère que les lettres accentuées NE SONT PAS 
+    des lettres standards (pour simplifier les maths).
+
+    Args:
+        char (str): Le caractère à tester.
+
+    Returns:
+        bool: True si c'est une lettre ASCII (A-Z ou a-z), False sinon.
+
+    Examples:
+        >>> est_lettre('A')
+        True
+        >>> est_lettre('!')
+        False
+        >>> est_lettre('é')
+        False
+    \"\"\"
+    return NotImplemented
+{PADDING}
 def code_lettre(lettre, decalage):
     \"\"\"
     Décale une SEULE lettre en utilisant le code César.
     
+    ⚠️ DÉPENDANCE : Commencez par implémenter `est_lettre` ci-dessus.
+    Cette fonction doit utiliser `est_lettre` pour vérifier l'entrée.
+
     Règles métier :
     1. Si `lettre` n'est pas une lettre de l'alphabet (ex: '!', '1', ' '), elle est retournée inchangée.
     2. La lettre est d'abord convertie en MAJUSCULE.
@@ -147,8 +172,9 @@ def chiffrer_cesar(message, decalage):
     \"\"\"
     Chiffre une chaîne de caractères complète.
     
-    Cette fonction doit itérer sur chaque caractère du message et utiliser
-    la fonction `code_lettre` pour le transformer.
+    ⚠️ DÉPENDANCE : Cette fonction DOIT utiliser `code_lettre`.
+    Ne réécrivez pas la logique du décalage ici ! Bouclez sur le message
+    et appelez votre fonction `code_lettre` pour chaque caractère.
 
     Args:
         message (str): Le texte à chiffrer.
@@ -169,7 +195,7 @@ def dechiffrer_cesar(message, decalage):
     \"\"\"
     Inverse l'opération de chiffrement.
     
-    Astuce : Mathématiquement, déchiffrer avec un décalage N revient à 
+    ⚠️ ASTUCE : Mathématiquement, déchiffrer avec un décalage N revient à 
     chiffrer avec un décalage -N. Ne réécrivez pas la logique, réutilisez `chiffrer_cesar`.
 
     Args:
@@ -178,28 +204,6 @@ def dechiffrer_cesar(message, decalage):
 
     Returns:
         str: Le message en clair.
-    \"\"\"
-    return NotImplemented
-{PADDING}
-def est_lettre(char):
-    \"\"\"
-    Vérifie si un caractère est une lettre de l'alphabet standard (A-Z).
-    Pour cet exercice, on considère que les lettres accentuées NE SONT PAS 
-    des lettres standards (pour simplifier les maths).
-
-    Args:
-        char (str): Le caractère à tester.
-
-    Returns:
-        bool: True si c'est une lettre ASCII (A-Z ou a-z), False sinon.
-
-    Examples:
-        >>> est_lettre('A')
-        True
-        >>> est_lettre('!')
-        False
-        >>> est_lettre('é')
-        False
     \"\"\"
     return NotImplemented
 {PADDING}
