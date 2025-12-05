@@ -2,6 +2,8 @@
 
 > ⚠️ **ÉTUDIANTS :** Toutes les consignes, les règles et le déroulement se trouvent dans le document PDF **"Énoncé du TP"**. Merci de le lire attentivement avant de commencer.
 
+<a href="TP09_Intro-tests-unitaires_Exercice-commun.pdf" target="_blank">Enoncé de l'exercice</a>
+
 ---
 <br>
 <br>
